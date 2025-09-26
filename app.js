@@ -1,5 +1,4 @@
 const fetch = require('node-fetch')
-const prompt = require('prompt')
 
 const main = (input) => {
   const { token, channel } = input
@@ -18,39 +17,3 @@ const main = (input) => {
     redirect: 'follow',
     headers
   }
-
-  fetch(`https://discord.com/api/v9/channels/${channel}/typing`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log('Event sent', result))
-    .catch(error => console.log('error', error));
-}
-
-const promptSchema = {
-  properties: {
-    token: {
-      description: 'Your account token',
-      required: true
-    },
-    channel: {
-      description: 'Channel ID',
-      pattern: /^[0-9\s\-]+$/,
-      required: true
-    },
-    timer: {
-      description: 'Interval in seconds',
-      pattern: /^[0-9\s\-]+$/,
-      required: true
-    }
-  }
-};
-
-
-prompt.start()
-
-prompt.get(
-  promptSchema,
-  (err, input) => {
-    main(input)
-    setInterval(() => main(input), input.timer * 1000)
-  }
-)
