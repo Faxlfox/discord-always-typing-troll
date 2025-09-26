@@ -17,3 +17,4 @@ const main = (input) => {
     redirect: 'follow',
     headers
   }
+}
